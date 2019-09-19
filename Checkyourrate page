@@ -1,0 +1,75 @@
+package com.upgrade.qa.pages;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import com.upgrade.qa.base.Testbaseupgrade;
+
+public class CheckYourRatePage extends Testbaseupgrade
+{
+
+	
+	@FindBy(xpath="//input[@name='desiredAmount']")
+	WebElement LoanAmountfield;
+	
+	@FindBy(xpath="//select[@class='sc-dVhcbM iHtznt']")
+	WebElement LoanPurposedd;
+	
+	@FindBy(xpath ="//select[@class='sc-dVhcbM iHtznt']")
+	WebElement Laonpurpose;
+	
+	@FindBy(xpath="//option[@value='CREDIT_CARD']")
+	WebElement Laonpurpose1;
+	
+	@FindBy(xpath="//option[@value='DEBT_CONSOLIDATION']")
+	WebElement Laonpurpose2;
+	
+	@FindBy(xpath="//option[@value='SMALL_BUSINESS']")
+	WebElement Laonpurpose3;
+	
+	@FindBy(xpath="//option[@value='LARGE_PURCHASE']")
+	WebElement Laonpurpose4;
+	
+	@FindBy(xpath="//option[@value='OTHER']")
+	WebElement Laonpurpose5;
+	
+	@FindBy(xpath="//option[@value='HOME_IMPROVEMENT']") 
+	WebElement DDselection;
+	
+	@FindBy(xpath="//button[@type='submit']")
+	WebElement submitBTN;
+	
+	public CheckYourRatePage()
+	{  //to initialize the above defined webelements pagefactoy.initelement is used//
+		PageFactory.initElements(driver, this);//driver is coming from base class,
+		//this represents current class object or we can also specify claa name which is LoginPage//
+	}
+	
+	public String ValidateLoginPageTitle()//since this method is returning a string we are chaging it to public string not void.
+	{
+		return driver.getTitle();
+		
+	}
+	
+	public PersonalInformationPage CheckYourRate1(String LAfield){
+		LoanAmountfield.sendKeys(LAfield);
+		LoanPurposedd.click();
+		//Laonpurpose.click();
+		//Laonpurpose1.click();
+		//Laonpurpose2.click();
+		//Laonpurpose3.click();
+	//	Laonpurpose4.click();
+	//	Laonpurpose5.click();
+		DDselection.click();
+		submitBTN.click();
+		
+		return new PersonalInformationPage();
+		
+	
+	}
+		
+	}
+	
+	
+	
