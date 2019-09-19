@@ -1,0 +1,62 @@
+package com.upgrade.qa.base;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.upgrade.qa.util.TestUtilUpgrade;
+
+
+
+public class Testbaseupgrade {
+
+	public static WebDriver driver;//by making it public we can use these in child calsses also.
+	public static Properties prop; // this can be used under child classes as well base classes
+	
+	public Testbaseupgrade (){
+		
+	
+		try {
+			prop = new Properties(); //reading the property files and initializing the prop vriable which can be used under child classes also//
+			FileInputStream ip = new FileInputStream("D:\\Mobile apps\\TestNGupgrade\\src\\main\\java\\com\\upgrade\\qa\\Environvariables\\ConfigUpgrade.properties");
+			prop.load(ip);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		 catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public static void initialization(){
+		
+		String browsername = prop.getProperty("browser");//read the prop file and assign it to broswer name variable//
+		
+		if (browsername.equals("chrome")){
+			System.setProperty("webdriver.chrome.driver",
+					"D:\\selenium-java-2.53.1\\chromedriver_win32\\chromedriver.exe");
+			driver = new ChromeDriver(); //driver is global because its defined inside the main class.
+		}else if (browsername.equals("firefox")){
+			System.setProperty("webdriver.gecko.driver",
+					"D:\\selenium-java-2.53.1\\geckodriver_win32\\geckoriver.exe");
+			driver = new FirefoxDriver(); 
+		} //similarly we can do it for safari and other browsers as well, we need to define all in configprop file/
+				
+				driver.manage().deleteAllCookies();
+				driver.manage().window().maximize();
+				driver.manage().timeouts().implicitlyWait(TestUtilUpgrade.page_load_timeout , TimeUnit.SECONDS);//define under util files under util package and class//
+				driver.manage().timeouts().pageLoadTimeout(TestUtilUpgrade.implicit_wait, TimeUnit.SECONDS);
+				driver.get(prop.getProperty("url"));
+						 
+		}
+	
+	
+}
